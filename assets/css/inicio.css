@@ -1,0 +1,62 @@
+img{
+    padding: 10px;
+    border-radius: 100px;
+}
+.profile-photo{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+body {
+  background: rgb(199, 207, 255);
+  background-image: url('../img/heart.jpg'); /* Añadir la ruta de la imagen */
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  position: relative;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(199, 207, 255, 0.7); /* Ajusta la opacidad aquí */
+  z-index: 0; /* Debe estar detrás del contenido */
+}
+
+
+.dropdown-menu {
+  background-color:  #c85ee9; /* Color de fondo oscuro */
+  color: white; /* Color del texto en el dropdown */
+}
+
+.dropdown-menu a {
+  color: white; /* Color del texto de los enlaces */
+}
+
+.dropdown-menu a:hover {
+  background-color: #c85ee9;  /* Color de fondo al pasar el ratón */
+  color: white;
+}
+
+.btn-primary{
+  background-color: rgb(250, 133, 191);
+  border: rgb(250, 133, 191);
+}
+
+.btn-primary:hover{
+  background-color: rgb(224, 68, 185);
+  border: rgb(224, 68, 185);
+}
+
+.btn-primary:active {
+  background-color: rgb(224, 68, 185) !important; /* Color al hacer clic */
+  border: 1px solid rgb(224, 68, 185) !important; /* Color del borde al hacer clic */
+}
+
+.btn-primary:focus {
+  background-color: rgb(224, 68, 185) !important; /* Color al hacer foco */
+  border: 1px solid rgb(224, 68, 185) !important; /* Color del borde al hacer foco */
+}
