@@ -77,14 +77,14 @@ if($_POST){
                 if($res->num_rows>0){
                     $row=$res->fetch_array();
                     $valido['success']=true;
-                    $valido['mensaje']=$row[3];
+                    $valido['nombre']=$row[3];
                     $valido['foto']=$row[4];
                 }else {
                     $valido['success']=false;
                     $valido['mensaje']="USUARIO Y/O PASSWORD INCORRECTO";
                 }           
                 echo json_encode($valido);
-    
+     
                 break;
 
                 case "perfil":

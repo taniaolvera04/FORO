@@ -8,6 +8,7 @@ if(sesion=="null"){
 const cargarNombre=async()=>{
 
     datos=new FormData();
+    datos.append("id_u",sesion.id_u);
     datos.append("email",sesion);
     datos.append("action","select");
 
@@ -15,8 +16,11 @@ const cargarNombre=async()=>{
     let json=await respuesta.json();
 
     if(json.success==true){
-        document.getElementById("user").innerHTML=json.mensaje;
+        document.getElementById("user").innerHTML=json.nombre;
         document.getElementById("foto_perfil").src="assets/"+json.foto;
+        //PARA DIV PUBLICACIÓN
+        document.getElementById("perfil2").innerHTML=json.nombre;
+        document.getElementById("foto_perfil2").src="assets/"+json.foto;
     }else{
     Swal.fire({title:"ERROR",text:json.mensaje,icon:"error"});
     }
@@ -152,8 +156,7 @@ var divPost=``
 json.map(post=>{
 moment.locale("es");
 moment().format("L");
-var fecha1=moment(post.fecha).format("YYYY-MM-DD hh:mm A");
-var fecha2=moment(post.fecha).format("D MMMM YYYY hh:mm A");
+
 var fecha3=moment(post.fecha,'YYYY-MM-DD hh:mm:ss').fromNow();
 
 divPost+=`
@@ -201,7 +204,9 @@ divPost+=`
         <div class="accordion-body">
         
         </div>
+
         </div>
+        
     </div>
 </div>
 
@@ -223,9 +228,9 @@ const cargarPersonal=async()=>{
     json.map(post=>{
     moment.locale("es");
     moment().format("L");
-    var fecha1=moment(post.fecha).format("YYYY-MM-DD hh:mm A");
+   
     var fecha2=moment(post.fecha).format("D MMMM YYYY hh:mm A");
-    var fecha3=moment(post.fecha,'YYYY-MM-DD hh:mm:ss').fromNow();
+  
     
     divPersonal+=`
     <div class="card w-50 m-auto mt-3">
