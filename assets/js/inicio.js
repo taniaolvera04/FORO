@@ -8,7 +8,6 @@ if(sesion=="null"){
 const cargarNombre=async()=>{
 
     datos=new FormData();
-    datos.append("id_u",sesion.id_u);
     datos.append("email",sesion);
     datos.append("action","select");
 
@@ -175,14 +174,14 @@ divPost+=`
         </div>
 
 
-    <div class="card-footer"> 
-      <input type="text" class="form-control d-inline-block w-75" id="comment" placeholder="Agrega un comentario">
+<div class="card-footer"> 
+<input type="text" class="form-control d-inline-block w-75" placeholder="Agrega un comentario" id="comentario${post.idpost}">
 
-      <button class="btn btn-primary mx-2 d-inline-block">
+<button class="btn btn-primary mx-2 d-inline-block" onclick="comentar${post.idpost},${post.id_u}">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
       <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
       </svg>
-    </button>
+    </button> 
     
     </div>
 
@@ -201,9 +200,7 @@ divPost+=`
         
         <div id="collapse${post.idpost}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
        
-        <div class="accordion-body">
-        
-        </div>
+      <h5>jiji</h5>
 
         </div>
         
@@ -215,6 +212,28 @@ divPost+=`
 
 document.getElementById('divPosts').innerHTML=divPost;
 }
+
+
+
+const comentar=async(idpost,id_u)=>{
+    let comentario=document.getElementById('comentario'+idpost).value;
+
+    let datos=new FormData();
+    datos.append("comentario",comentario);
+    datos.append("idpost",idpost);
+   // datos.append("id_u",id_u);
+    datos.append("action","comentar");
+    let respuesta=await fetch("php/post.php",{method:'POST',body:datos});
+    let json= await respuesta.json();
+    if(json.success==true){
+        Swal.fire("¡ÉXITO!",json.mensaje,"success");
+        document.getElementById("comentario").value="";
+    }else{
+        Swal.fire("ERROR!",json.mensaje,"error");
+    }
+    
+}
+
 
 
 const cargarPersonal=async()=>{
@@ -258,27 +277,6 @@ const cargarPersonal=async()=>{
     }
 
 
-
-
-const addComentario=async()=>{
-    let comment=document.getElementById("comment").value;
-    if(comment.trim()==""){
-        Swal.fire({icon:"error",title:"ERROR",text:"TIENES CAMPOS VACÍOS"});
-        return;
-    }
-    let datos=new FormData();
-    datos.append("comment",comment);
-    datos.append("action","comentar");
-
-    let respuesta=await fetch("php/comentario.php",{method:'POST',body:datos});
-    let json=await respuesta.json();
-
-    if(json.success==true){
-        Swal.fire("¡ÉXITO!",json.mensaje,"success");
-    }else{
-        Swal.fire("ERROR!",json.mensaje,"error");
-    }
-}
 
 
 

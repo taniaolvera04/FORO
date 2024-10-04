@@ -11,14 +11,6 @@ if($_POST){
             $valido['success']=array('success'=>false,'mensaje'=>"");            
             $post=$_POST['post'];
             $email=$_POST['email'];
-           
-
-            $check = "SELECT id_u FROM usuario WHERE email='$email'";
-            $result = $cx->query($check);
-            
-
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
                 $id_u = $row['id_u'];
 
                 $sql="INSERT INTO post VALUES(null,'$post',null, '$id_u')";
@@ -29,11 +21,6 @@ if($_POST){
                     $valido['success']=false;
                     $valido['mensaje']="ERROR AL PUBLICAR";
                 }
-                
-            }else{
-                $valido['success']=false;
-                $valido['mensaje']="USUARIO NO DISPONIBLE";
-            }
          
         echo json_encode($valido);
         break;
@@ -60,6 +47,25 @@ if($_POST){
             }
             echo json_encode($rows);
         break;
+
+
+        case "comentar":
+
+            $valido['success']=array('success'=>false,'mensaje'=>"");            
+            $idpost=$_POST['idpost'];
+            $id_u=$_POST['id_u'];
+            $comentario=$_POST['comentario'];
+
+                $sql="INSERT INTO comentario VALUES(null,'$comentario',null, $id_u,$idpost)";
+                if($cx->query($sql)){
+                    $valido['success']=true;
+                    $valido['mensaje']="SE PUBLICÓ CORRECTAMENTE";
+                }else {
+                    $valido['success']=false;
+                    $valido['mensaje']="ERROR AL PUBLICAR";
+                }
+         
+        echo json_encode($valido);
 
     }
     
