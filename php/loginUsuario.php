@@ -58,6 +58,7 @@ if($_POST){
                 if ($res->num_rows > 0) {
                     $row = $res->fetch_array();
                     $valido['success'] = true;
+                    $valido['id_u']=$row['id_u'];
                     $valido['mensaje'] = "SE INICIÓ CORRECTAMENTE";
                    
                 } else {
@@ -77,6 +78,7 @@ if($_POST){
                 if($res->num_rows>0){
                     $row=$res->fetch_array();
                     $valido['success']=true;
+                    $valido['id_u']=$row[0];
                     $valido['nombre']=$row[3];
                     $valido['foto']=$row[4];
                 }else {

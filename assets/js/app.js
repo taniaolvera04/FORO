@@ -1,6 +1,6 @@
-var sesion=localStorage.getItem('usuario') || "null";
+var sesion=localStorage.getItem('usuario') || { email: "null" };
 
-if (sesion != "null") {
+if (sesion.email != "null") {
   
         window.location.href = 'inicio.html';
 
@@ -50,7 +50,7 @@ if (sesion != "null") {
     
     if (json.success == true) {
 
-        localStorage.setItem("usuario", usuario);
+        localStorage.setItem("usuario",JSON.stringify({ id_u: json.id_u, email: usuario }));
         window.location.href = 'inicio.html';
         
     } else {
