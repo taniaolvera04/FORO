@@ -67,6 +67,16 @@ if($_POST){
          
         echo json_encode($valido);
 
+
+        case "cargarComentarios":
+            $result=$cx->query("SELECT usuario.nombre, usuario.foto, usuario.id_u, comentario.fecha, comentario.comentario, comentario.idcomentario, comentario.idpost
+            FROM usuario INNER JOIN comentario ON(usuario.id_u=comentario.id_u) ORDER BY comentario.fecha DESC");
+            $rows=array();
+            while($row=$result->fetch_assoc() ){
+                $rows[]=$row;
+            }
+            echo json_encode($rows);
+        break;
     }
     
 }else{
