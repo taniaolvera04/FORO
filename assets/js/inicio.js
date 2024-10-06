@@ -1,29 +1,60 @@
-var sesion = JSON.parse(localStorage.getItem('usuario')) || { email: "null" };
-
-if (sesion.email == "null") {
+var sesion = JSON.parse(localStorage.getItem('usuario')); // Asegúrate de parsear el JSON
+if (!sesion || sesion.email === "null") {
     window.location.href = "index.html";
 }
 
-
-
+// Cargar el nombre y la foto del usuario
 const cargarNombre = async () => {
     const datos = new FormData();
-    datos.append("email", sesion.email);
+    let email = sesion.email; // Obtener el email de la sesión
+    datos.append("email", email);
     datos.append("action", "select");
 
-    let respuesta = await fetch("php/loginUsuario.php", { method: 'POST', body: datos });
-    let json = await respuesta.json();
+    try {
+        let respuesta = await fetch("php/loginUsuario.php", { method: 'POST', body: datos });
+        let json = await respuesta.json();
 
-    if (json.success) {
-        document.getElementById("user").innerHTML = json.nombre;
-        document.getElementById("foto_perfil").src = "assets/" + json.foto;
-        // PARA DIV PUBLICACIÓN
-        document.getElementById("perfil2").innerHTML = json.nombre;
-        document.getElementById("foto_perfil2").src = "assets/" + json.foto;
-    } else {
-        Swal.fire({ title: "ERROR", text: json.mensaje, icon: "error" });
+        if (json.success) {
+            document.getElementById("user").innerHTML = json.nombre;
+            document.getElementById("foto_perfil").src = "assets/" + json.foto;
+            // Actualizar en la sección de publicación
+            document.getElementById("perfil2").innerHTML = json.nombre;
+            document.getElementById("foto_perfil2").src = "assets/" + json.foto;
+        } else {
+            Swal.fire({ title: "ERROR", text: json.mensaje, icon: "error" });
+        }
+    } catch (error) {
+        console.error('Error al cargar el nombre:', error);
+        Swal.fire({ title: "ERROR", text: "Hubo un problema al cargar el nombre.", icon: "error" });
     }
 }
+
+
+// Cargar el nombre y la foto del usuario
+const cargarNombre2 = async () => {
+    const datos = new FormData();
+    let email = sesion.email; // Obtener el email de la sesión
+    datos.append("email", email);
+    datos.append("action", "select");
+
+    try {
+        let respuesta = await fetch("php/loginUsuario.php", { method: 'POST', body: datos });
+        let json = await respuesta.json();
+
+        if (json.success) {
+            document.getElementById("user").innerHTML = json.nombre;
+            document.getElementById("foto_perfil").src = "assets/" + json.foto;
+          
+        } else {
+            Swal.fire({ title: "ERROR", text: json.mensaje, icon: "error" });
+        }
+    } catch (error) {
+        console.error('Error al cargar el nombre:', error);
+        Swal.fire({ title: "ERROR", text: "Hubo un problema al cargar el nombre.", icon: "error" });
+    }
+}
+
+
 
 
 
@@ -45,7 +76,8 @@ document.getElementById("salir").onclick = () => {
 
 const cargarPerfil = async () => {
     const datos = new FormData();
-    datos.append("email", sesion.email);
+    let email = sesion.email; // Obtener el email de la sesión
+    datos.append("email", email);
     datos.append("action", "perfil");
 
     try {

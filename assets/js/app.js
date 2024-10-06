@@ -1,4 +1,4 @@
-var sesion=localStorage.getItem('usuario') || { email: "null" };
+var sesion =localStorage.getItem('usuario') || { email: "null" };
 
 if (sesion.email != "null") {
   
