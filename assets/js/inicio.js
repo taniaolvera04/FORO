@@ -324,7 +324,7 @@ const verComentarios=async(idpost)=>{
         moment.locale("es");
         moment().format("L");
         
-        var fecha3=moment(post.fecha,'YYYY-MM-DD hh:mm:ss').fromNow();
+        var fecha3=moment().format('LLL a');
         
         divPost+=`
         <div class="card w-50 m-auto mt-3">
